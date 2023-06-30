@@ -1,6 +1,6 @@
 "use client"
 
-import { FunctionComponent, useState, ReactNode, createContext, useContext, Dispatch, SetStateAction} from "react";
+import { FunctionComponent, useState, ReactNode, createContext, useContext, Dispatch, SetStateAction, useCallback} from "react";
 
 // interface ToggleProps {
 //     initialValue: boolean;
@@ -86,20 +86,41 @@ const SwitchButton = () => {
 
 interface Menu {
     children: Iterable<ReactNode>;
+    title: string;
 }
 
-const MenuContext = createContext(null);
-
-const MenuAccordion: FunctionComponent<Menu> = ({children}) => {
-    return <div>{ children }</div>
+interface MenuContextInterface {
+    activeGroup: string;
+    // setActiveGroup: Dispatch<SetStateAction<string>>
+    switchGroup: (title: string) => void;
 }
 
-const MenuGroup: FunctionComponent<Menu> = ({children}) => {
+const MenuContext = createContext<MenuContextInterface | null>(null);
+
+const MenuAccordion: FunctionComponent<Omit<Menu, "title">> = ({children}) => {
+    const [activeGroup, setActiveGroup] = useState<string>('');
+
+    const switchGroup = useCallback((title: string) => {
+        setActiveGroup((currentTitle: string) => currentTitle === title ? '' : title);
+    }, [])
+
+    return <MenuContext.Provider value={{activeGroup, switchGroup}}>{ children }</MenuContext.Provider>
+}
+
+const MenuGroup: FunctionComponent<Menu> = ({children, title}) => {
+    const {activeGroup, switchGroup} = useContext(MenuContext) as MenuContextInterface;
+
     return(
     <div>
-        <div>title</div> 
-        <div>{children}</div> 
+        <button onClick={() => switchGroup(title)}>{ title }</button> 
+        {activeGroup === title && <div>{ children }</div>}
     </div>     
+    )
+}
+
+const MenuItem: FunctionComponent<Omit<Menu, "children">> = ({ title}) => {
+    return(
+        <div>{ title }</div> 
     )
 }
 
@@ -107,13 +128,24 @@ export const CompoundComponent: FunctionComponent = () => {
     
     return (
         <div>
+            <hr />
             <ToggleCompound initialValue={false}>
                 <TextOn />
                 <TextOff />
                 <SwitchButton />
             </ToggleCompound>
+            <hr />
             <MenuAccordion>
-
+                <MenuItem title="Главная"/>
+                <MenuGroup title="Фильмы">
+                    <MenuItem title="Топ"/>
+                    <MenuItem title="Не топ"/>
+                </MenuGroup>
+                <MenuGroup title="Сериалы">
+                    <MenuItem title="Топ"/>
+                    <MenuItem title="Не топ"/>
+                </MenuGroup>
+                <MenuItem title="О нас"/>
             </MenuAccordion>
         </div>
     );
