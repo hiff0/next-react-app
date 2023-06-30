@@ -4,6 +4,7 @@ import React, { useMemo, createContext } from "react"
 import { FilmDetails } from "./components/FilmDetails"
 import { FilmReview } from "./components/FilmReview"
 import { ReviewForm } from "./components/ReviewForm"
+import { RenderProp } from "./components/RenderProp"
 import { FilmDetails as FilmDetailsInterface } from "./interfaces"
 import { CompoundComponent } from "./components/CompoundComponent"
 
@@ -55,6 +56,8 @@ export default function Home() {
         <FilmReview reviews={filmDetails.reviews}/>
         <ReviewForm />
         < CompoundComponent />
+        <hr />
+        <RenderProp />
       </div>
     </ThemeContext.Provider>
   )
