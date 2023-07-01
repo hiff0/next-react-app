@@ -1,5 +1,5 @@
 "use client"
-
+// Pattern
 import { FunctionComponent, useState, ReactNode, createContext, useContext, Dispatch, SetStateAction, useCallback} from "react";
 
 // interface ToggleProps {

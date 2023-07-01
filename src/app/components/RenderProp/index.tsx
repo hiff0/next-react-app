@@ -1,5 +1,5 @@
 "use client"
-
+// Pattern
 import { FunctionComponent, ReactNode, useState } from "react";
 
 interface LayoutProps {
@@ -38,6 +38,6 @@ export const RenderProp: FunctionComponent = () => {
     return <Layout
         renderHeader={() => <header>Header</header>}
         renderFooter={() => <footer>Footer</footer>}
-        renderSidebarLeft={(isOpen) => <div>{isOpen && 'Open Left Sidebar'}</div>}
-        renderSidebarRight={(isOpen) => <div>{ isOpen && 'Open Right Sidebar'}</div>}/>
+        renderSidebarLeft={(_isOpen) => <div>Left Sidebar</div>}
+        renderSidebarRight={(isOpen) => <div>{ isOpen ? 'Open' : 'Closed'}</div>}/>
 }

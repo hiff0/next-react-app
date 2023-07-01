@@ -6,6 +6,10 @@ import { FilmReview } from "./components/FilmReview"
 import { ReviewForm } from "./components/ReviewForm"
 import { RenderProp } from "./components/RenderProp"
 import { FilmDetails as FilmDetailsInterface } from "./interfaces"
+import { Hoc } from "./components/hoc"
+import Transition from "./components/optimization/transition"
+import Lazy from "./components/optimization/lazy"
+import ContextPage from "./components/optimization/context"
 import { CompoundComponent } from "./components/CompoundComponent"
 
 const filmDetails: FilmDetailsInterface = {
@@ -49,7 +53,7 @@ export default function Home() {
     <ThemeContext.Provider value={1}>
       <div>
         <header />
-        <FilmDetails
+        {/* <FilmDetails
           title={filmDetails.title}
           genre={filmDetails.genre as 'comedy'}
           seasonsCount={filmDetails.sesonsCount} />
@@ -58,6 +62,11 @@ export default function Home() {
         < CompoundComponent />
         <hr />
         <RenderProp />
+        <hr /> */}
+        {/* <Hoc /> */}
+        {/* <Transition /> */}
+        {/* <Lazy /> */}
+        <ContextPage />
       </div>
     </ThemeContext.Provider>
   )
