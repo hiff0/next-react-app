@@ -1,6 +1,8 @@
 "use client"
 
 import React, { useMemo, createContext } from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { FilmDetails } from "./components/FilmDetails"
 import { FilmReview } from "./components/FilmReview"
 import { ReviewForm } from "./components/ReviewForm"
@@ -48,11 +50,14 @@ export default function Home() {
   //     }, 0) / filmDetails.reviews.length
   //   )
   // }, [filmDetails.reviews])
-
+  const router = useRouter();
   return (
     <ThemeContext.Provider value={1}>
       <div>
         <header />
+        <h2>Main page</h2>
+        <Link href="/film/1">Фальмы</Link>
+        <button type="button" onClick={() => router.push('/film/2')}>Film page</button>
         {/* <FilmDetails
           title={filmDetails.title}
           genre={filmDetails.genre as 'comedy'}
