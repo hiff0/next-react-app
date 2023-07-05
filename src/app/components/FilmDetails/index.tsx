@@ -30,7 +30,7 @@ export const FilmDetails: FunctionComponent<Props> = ({
         return () => {
             console.log('Вызывается перед следующим вызовом useEffect или при destroy')
         }; // Вызывается перед следующим вызовом useEffect или при destroy
-    }, [count]);
+    }, [count, theme]);
 
     return (
         <div>
